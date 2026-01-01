@@ -1,4 +1,4 @@
-import { Sparkles, Rocket, Crown, Shield, Code2, GraduationCap } from "lucide-react";
+import { Sparkles, Rocket, Crown, Shield, Code2, GraduationCap, Landmark, HeartPulse } from "lucide-react";
 
 type AnalysisLevel = "plan" | "industry";
 
@@ -18,6 +18,8 @@ const industryOptions = [
   { id: "cybersecurity", title: "Cybersecurity", description: "Security & compliance", icon: Shield, users: "1.2K accounts" },
   { id: "devtools", title: "DevTools", description: "Developer platforms", icon: Code2, users: "3.8K accounts" },
   { id: "edtech", title: "EdTech", description: "Education technology", icon: GraduationCap, users: "2.1K accounts" },
+  { id: "fintech", title: "FinTech", description: "Financial services", icon: Landmark, users: "2.7K accounts" },
+  { id: "healthtech", title: "HealthTech", description: "Healthcare solutions", icon: HeartPulse, users: "1.9K accounts" },
 ];
 
 export function OptionSelector({ analysisLevel, selected, onSelect }: OptionSelectorProps) {
