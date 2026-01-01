@@ -1,4 +1,4 @@
-import { Sparkles, Rocket, Crown, Shield, Code2, GraduationCap, Landmark, HeartPulse } from "lucide-react";
+import { Sparkles, Rocket, Crown, Shield, Code2, GraduationCap, Landmark, HeartPulse, Check } from "lucide-react";
 
 type AnalysisLevel = "plan" | "industry";
 
@@ -9,17 +9,17 @@ interface OptionSelectorProps {
 }
 
 const planOptions = [
-  { id: "basic", title: "Basic", description: "Entry-level tier", icon: Sparkles, users: "2.4K subscribers" },
-  { id: "pro", title: "Pro", description: "Professional tier", icon: Rocket, users: "8.1K subscribers" },
-  { id: "enterprise", title: "Enterprise", description: "Enterprise tier", icon: Crown, users: "340 subscribers" },
+  { id: "basic", title: "Basic", description: "Entry-level tier", icon: Sparkles, users: "2.4K subscribers", color: "from-blue-500 to-cyan-500" },
+  { id: "pro", title: "Pro", description: "Professional tier", icon: Rocket, users: "8.1K subscribers", color: "from-violet-500 to-purple-500" },
+  { id: "enterprise", title: "Enterprise", description: "Enterprise tier", icon: Crown, users: "340 subscribers", color: "from-amber-500 to-orange-500" },
 ];
 
 const industryOptions = [
-  { id: "cybersecurity", title: "Cybersecurity", description: "Security & compliance", icon: Shield, users: "1.2K accounts" },
-  { id: "devtools", title: "DevTools", description: "Developer platforms", icon: Code2, users: "3.8K accounts" },
-  { id: "edtech", title: "EdTech", description: "Education technology", icon: GraduationCap, users: "2.1K accounts" },
-  { id: "fintech", title: "FinTech", description: "Financial services", icon: Landmark, users: "2.7K accounts" },
-  { id: "healthtech", title: "HealthTech", description: "Healthcare solutions", icon: HeartPulse, users: "1.9K accounts" },
+  { id: "cybersecurity", title: "Cybersecurity", description: "Security & compliance", icon: Shield, users: "1.2K accounts", color: "from-red-500 to-rose-500" },
+  { id: "devtools", title: "DevTools", description: "Developer platforms", icon: Code2, users: "3.8K accounts", color: "from-emerald-500 to-teal-500" },
+  { id: "edtech", title: "EdTech", description: "Education technology", icon: GraduationCap, users: "2.1K accounts", color: "from-blue-500 to-indigo-500" },
+  { id: "fintech", title: "FinTech", description: "Financial services", icon: Landmark, users: "2.7K accounts", color: "from-amber-500 to-yellow-500" },
+  { id: "healthtech", title: "HealthTech", description: "Healthcare solutions", icon: HeartPulse, users: "1.9K accounts", color: "from-pink-500 to-rose-500" },
 ];
 
 export function OptionSelector({ analysisLevel, selected, onSelect }: OptionSelectorProps) {
@@ -30,14 +30,19 @@ export function OptionSelector({ analysisLevel, selected, onSelect }: OptionSele
     : "Choose an industry vertical to analyze";
 
   return (
-    <div className="space-y-4 fade-in-up">
-      <div>
-        <h2 className="text-lg font-semibold text-foreground">{title}</h2>
-        <p className="text-sm text-muted-foreground mt-1">{subtitle}</p>
+    <div className="space-y-5 fade-in-up">
+      <div className="flex items-center gap-4">
+        <div className={`step-number ${selected ? "step-number-complete" : "step-number-active"}`}>
+          {selected ? <Check className="w-4 h-4" /> : "2"}
+        </div>
+        <div>
+          <h2 className="text-lg font-semibold text-foreground">{title}</h2>
+          <p className="text-sm text-muted-foreground">{subtitle}</p>
+        </div>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {options.map((option) => {
+      <div className={`grid grid-cols-1 ${analysisLevel === "plan" ? "md:grid-cols-3" : "md:grid-cols-3 lg:grid-cols-5"} gap-4 pl-12`}>
+        {options.map((option, index) => {
           const Icon = option.icon;
           const isActive = selected === option.id;
           
@@ -45,18 +50,33 @@ export function OptionSelector({ analysisLevel, selected, onSelect }: OptionSele
             <button
               key={option.id}
               onClick={() => onSelect(option.id)}
-              className={`selection-card text-left ${isActive ? "active" : ""}`}
+              className={`selection-card text-left fade-in-up stagger-${index + 1}`}
+              style={{ animationFillMode: 'forwards' }}
             >
               <div className="flex flex-col items-start gap-3">
-                <div className={`p-3 rounded-lg transition-colors ${
-                  isActive ? "bg-accent text-accent-foreground" : "bg-secondary text-muted-foreground"
-                }`}>
+                <div className={`icon-container ${isActive ? "icon-container-active" : "icon-container-default"}`}
+                     style={isActive ? { background: `linear-gradient(135deg, var(--tw-gradient-stops))` } : undefined}>
                   <Icon className="w-5 h-5" />
                 </div>
-                <div>
-                  <h3 className="font-semibold text-foreground">{option.title}</h3>
+                <div className="w-full">
+                  <div className="flex items-center justify-between gap-2">
+                    <h3 className="font-semibold text-foreground">{option.title}</h3>
+                    {isActive && (
+                      <div className="w-5 h-5 rounded-full bg-accent flex items-center justify-center flex-shrink-0">
+                        <Check className="w-3 h-3 text-white" />
+                      </div>
+                    )}
+                  </div>
                   <p className="text-sm text-muted-foreground">{option.description}</p>
-                  <p className="text-xs text-muted-foreground/70 mt-2">{option.users}</p>
+                  <div className="flex items-center gap-2 mt-3">
+                    <div className="h-1 flex-1 rounded-full bg-secondary overflow-hidden">
+                      <div 
+                        className={`h-full rounded-full bg-gradient-to-r ${option.color} transition-all duration-500`}
+                        style={{ width: isActive ? '100%' : '30%' }}
+                      />
+                    </div>
+                    <span className="text-xs text-muted-foreground/70 font-medium">{option.users}</span>
+                  </div>
                 </div>
               </div>
             </button>
