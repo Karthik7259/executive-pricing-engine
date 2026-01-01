@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Sparkles, RotateCcw } from "lucide-react";
+import { Sparkles, RotateCcw, ArrowRight } from "lucide-react";
 import { Header } from "@/components/Header";
 import { AnalysisLevelSelector } from "@/components/AnalysisLevelSelector";
 import { OptionSelector } from "@/components/OptionSelector";
@@ -48,7 +48,7 @@ const Index = () => {
     setTimeout(() => {
       setIsGenerating(false);
       setShowResults(true);
-    }, 1500);
+    }, 2000);
   };
 
   const handleReset = () => {
@@ -61,16 +61,21 @@ const Index = () => {
   const resultData = selectedOption ? pricingData[selectedOption] : null;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background bg-mesh">
       <Header />
       
-      <main className="container mx-auto px-6 py-12">
+      <main className="container mx-auto px-6 py-12 md:py-16">
         {/* Hero Section */}
-        <div className="max-w-3xl mx-auto text-center mb-12">
-          <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4 text-balance">
-            Optimize Pricing with Causal Intelligence
+        <div className="max-w-3xl mx-auto text-center mb-14 fade-in-up">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 text-accent text-sm font-medium mb-6">
+            <Sparkles className="w-4 h-4" />
+            Powered by Causal AI
+          </div>
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-5 tracking-tight text-balance">
+            Optimize Pricing with
+            <span className="text-gradient-accent"> Causal Intelligence</span>
           </h1>
-          <p className="text-lg text-muted-foreground text-balance">
+          <p className="text-lg text-muted-foreground text-balance leading-relaxed max-w-2xl mx-auto">
             Generate data-driven pricing recommendations powered by causal inference. 
             Our Double Machine Learning approach isolates true price-churn relationships 
             to maximize revenue without increasing customer attrition.
@@ -78,10 +83,10 @@ const Index = () => {
         </div>
 
         {/* Main Content */}
-        <div className="max-w-4xl mx-auto space-y-8">
+        <div className="max-w-5xl mx-auto space-y-8">
           {/* Selection Section */}
           {!showResults && (
-            <div className="executive-card-elevated space-y-8">
+            <div className={`executive-card-elevated space-y-10 ${canGenerate ? 'active' : ''}`}>
               {/* Step 1: Analysis Level */}
               <AnalysisLevelSelector 
                 selected={analysisLevel} 
@@ -90,7 +95,7 @@ const Index = () => {
 
               {/* Step 2: Option Selection */}
               {analysisLevel && (
-                <div className="pt-6 border-t border-border/50">
+                <div className="pt-8 border-t border-border/30">
                   <OptionSelector
                     analysisLevel={analysisLevel}
                     selected={selectedOption}
@@ -100,34 +105,41 @@ const Index = () => {
               )}
 
               {/* Generate Button */}
-              <div className="pt-6 border-t border-border/50">
-                <div className="flex flex-col items-center gap-4">
+              <div className="pt-8 border-t border-border/30">
+                <div className="flex flex-col items-center gap-5">
                   <button
                     onClick={handleGenerate}
                     disabled={!canGenerate}
-                    className="btn-primary-executive"
+                    className="btn-primary-executive group"
                   >
                     {isGenerating ? (
                       <>
                         <div className="w-5 h-5 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
-                        Generating Recommendation...
+                        <span>Analyzing Churn Elasticity...</span>
                       </>
                     ) : (
                       <>
                         <Sparkles className="w-5 h-5" />
-                        Generate Pricing Recommendation
+                        <span>Generate Pricing Recommendation</span>
+                        <ArrowRight className="w-4 h-4 opacity-0 -ml-2 group-hover:opacity-100 group-hover:ml-0 transition-all duration-300" />
                       </>
                     )}
                   </button>
                   
                   {!analysisLevel && (
                     <p className="text-sm text-muted-foreground">
-                      Select an analysis level to continue
+                      Select an analysis level to begin
                     </p>
                   )}
                   {analysisLevel && !selectedOption && (
                     <p className="text-sm text-muted-foreground">
-                      Select a {analysisLevel === "plan" ? "plan" : "industry"} to analyze
+                      Select a {analysisLevel === "plan" ? "plan tier" : "industry segment"} to analyze
+                    </p>
+                  )}
+                  {canGenerate && (
+                    <p className="text-sm text-success font-medium flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-success animate-pulse" />
+                      Ready to generate recommendation
                     </p>
                   )}
                 </div>
@@ -137,8 +149,8 @@ const Index = () => {
 
           {/* Results Section */}
           {showResults && resultData && (
-            <div className="space-y-6">
-              <div className="executive-card-elevated">
+            <div className="space-y-8 slide-in-bottom">
+              <div className="executive-card-elevated active">
                 <PricingResult {...resultData} />
               </div>
               
@@ -146,7 +158,7 @@ const Index = () => {
               <div className="flex justify-center">
                 <button
                   onClick={handleReset}
-                  className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                  className="btn-secondary-executive"
                 >
                   <RotateCcw className="w-4 h-4" />
                   Run New Analysis
@@ -157,8 +169,9 @@ const Index = () => {
         </div>
 
         {/* Footer Note */}
-        <div className="max-w-2xl mx-auto mt-16 text-center">
-          <p className="text-sm text-muted-foreground/70">
+        <div className="max-w-2xl mx-auto mt-20 text-center fade-in-up">
+          <div className="h-px w-24 bg-gradient-to-r from-transparent via-border to-transparent mx-auto mb-8" />
+          <p className="text-sm text-muted-foreground/60 leading-relaxed">
             Recommendations are based on historical transaction data and causal elasticity models. 
             Always validate pricing changes with controlled experiments before full deployment.
           </p>
