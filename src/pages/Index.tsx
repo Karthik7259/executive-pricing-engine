@@ -21,6 +21,8 @@ const pricingData: Record<string, {
   cybersecurity: { currentPrice: 149, recommendedPrice: 169, expectedRevenue: 202800, revenueChange: 11.3, planName: "Cybersecurity Segment" },
   devtools: { currentPrice: 49, recommendedPrice: 59, expectedRevenue: 224200, revenueChange: 15.8, planName: "DevTools Segment" },
   edtech: { currentPrice: 39, recommendedPrice: 44, expectedRevenue: 92400, revenueChange: 9.2, planName: "EdTech Segment" },
+  fintech: { currentPrice: 199, recommendedPrice: 229, expectedRevenue: 618300, revenueChange: 13.1, planName: "FinTech Segment" },
+  healthtech: { currentPrice: 129, recommendedPrice: 149, expectedRevenue: 283100, revenueChange: 10.6, planName: "HealthTech Segment" },
 };
 
 const Index = () => {
