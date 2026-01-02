@@ -63,7 +63,7 @@ const PriceChange = () => {
         body.selection = selectedOption;
       }
 
-      const res = await fetch("http://localhost:8000/simulate-price-change", {
+      const res = await fetch("https://pome-backend.onrender.com/simulate-price-change", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),

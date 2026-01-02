@@ -44,7 +44,7 @@ const Index = () => {
     setShowResults(false);
 
     try {
-      const response = await fetch("http://localhost:8000/optimize-price", {
+      const response = await fetch("https://pome-backend.onrender.com/optimize-price", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
