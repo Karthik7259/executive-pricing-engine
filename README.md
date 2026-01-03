@@ -1,73 +1,94 @@
-# Welcome to your Lovable project
+# Executive Pricing Engine — Frontend
 
-## Project info
+This folder contains the frontend for the Executive Pricing Engine — a React + Vite TypeScript app using Tailwind CSS and shadcn-ui.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+Quick start
+-----------
 
-## How can I edit this code?
+Prerequisites:
+- Node.js 16+ (use nvm if needed)
+- npm or pnpm
 
-There are several ways of editing your application.
+Install and run locally:
 
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+```bash
+cd frontend/executive-pricing-engine
+npm install
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+Build and preview (production build):
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```bash
+npm run build
+npm run preview
+```
 
-**Use GitHub Codespaces**
+Where images live
+-----------------
+Place exported EDA images into `public/` (or `public/graphs/` if you prefer). The `Graphs` page serves images from the public folder; prefer hyphenated, lowercase filenames (e.g. `eda-churn-by-segment.png`) to avoid URL issues.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+If you deploy under a subpath (GitHub Pages / repo-name), ensure `base` in `vite.config.ts` is set correctly so `import.meta.env.BASE_URL` resolves assets.
 
-## What technologies are used for this project?
+Deployment
+----------
+You can deploy the frontend to Netlify, Vercel, or GitHub Pages.
 
-This project is built with:
+- Netlify / Vercel: connect the repository, set the build command to `npm run build`, and the publish directory to `dist`.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- GitHub Pages (recommended steps):
+	1. Set `base` in `vite.config.ts`, e.g. `base: '/repo-name/'`.
+	2. Build the app: `npm run build`.
+	3. Deploy `dist/` to GitHub Pages (via `gh-pages` or GitHub Actions).
 
-## How can I deploy this project?
+Example GitHub Actions workflow (place in `.github/workflows/ci.yml`):
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+```yaml
+name: CI – Build Frontend
 
-## Can I connect a custom domain to my Lovable project?
+on: [push]
 
-Yes, you can!
+jobs:
+	build:
+		runs-on: ubuntu-latest
+		steps:
+			- uses: actions/checkout@v4
+			- name: Use Node.js
+				uses: actions/setup-node@v4
+				with:
+					node-version: 18
+			- run: cd frontend/executive-pricing-engine && npm ci
+			- run: cd frontend/executive-pricing-engine && npm run build
+			- name: Upload artifact
+				uses: actions/upload-artifact@v4
+				with:
+					name: frontend-dist
+					path: frontend/executive-pricing-engine/dist
+```
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+Contribution guide
+------------------
+- Branching: create feature branches from `main` named `feat/<short-desc>` or `fix/<short-desc>`.
+- Commit messages: use conventional commits (`feat:`, `fix:`, `chore:`, `docs:`).
+- Pull requests: open PRs against `main`; include a short description and test steps.
+- Code style: run `npm run lint` (if configured) and keep TypeScript types clean; prefer small focused PRs.
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Local testing & linting
+----------------------
+- `npm run dev` — start dev server
+- `npm run build` — production build
+- `npm run preview` — preview production build locally
+
+Notes
+-----
+- Filenames with spaces are URL-encoded but using hyphenated filenames is more robust for static hosts.
+- If images 404 after deployment, verify the deployed asset path (base URL) and that files were included in the `dist/` output.
+
+Need anything else?
+-------------------
+I can:
+- Add the GitHub Actions workflow file for you and commit it.
+- Normalize public image filenames and add a `public/graphs/placeholder.png` fallback.
+- Add linting / test scripts to `package.json`.
+
+Tell me which and I'll implement it.
