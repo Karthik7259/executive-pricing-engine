@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import PriceChange from "./pages/PriceChange";
 import NotFound from "./pages/NotFound";
+import Graphs from "./components/Graphs";
 
 const queryClient = new QueryClient();
 
@@ -18,6 +19,8 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/simulate-price-change" element={<PriceChange />} />
+          <Route path="/graphs" element={<Graphs />} />
+          <Route path='/Eda' element={<div>Eda Page Placeholder</div>} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

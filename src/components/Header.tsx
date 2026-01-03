@@ -33,6 +33,14 @@ export function Header() {
               Simulate Price Change
             </NavLink>
 
+            <NavLink
+              to="/graphs"
+              className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary/50 rounded-lg transition-all duration-200"
+              activeClassName="text-foreground bg-secondary/50"
+            >
+              Graphs
+            </NavLink>
+
             <button className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary/50 rounded-lg transition-all duration-200">
               API Reference
             </button>
