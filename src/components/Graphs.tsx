@@ -5,15 +5,18 @@ export default function Graphs() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   
+  // Build URLs using Vite's base path so assets work when deployed under a subpath
+  const base = (import.meta as any).env?.BASE_URL || "/";
+
   const images = [
-    { src: "./public/Churn by customer segment.png", title: "Churn by Customer Segment", category: "Customer Analytics", description: "Churn rate distribution across different customer segments" },
-    { src: "./public/churn vs mmr.png", title: "Churn vs MRR", category: "Revenue Analytics", description: "Monthly recurring revenue analysis for churned vs retained customers" },
-    { src: "./public/churn vs seats.png", title: "Churn vs Seats", category: "Usage Analytics", description: "Relationship between user seats and churn probability" },
-    { src: "./public/support_load.png", title: "Support Load Analysis", category: "Support Analytics", description: "Customer support ticket volume and resolution times" },
-    { src: "./public/tenure_months.png", title: "Customer Tenure", category: "Customer Analytics", description: "Distribution of customer lifespan in months" },
-    { src: "./public/usage_level.png", title: "Usage Level Analysis", category: "Usage Analytics", description: "Product usage frequency and engagement patterns" },
-    { src: "./public/feature_importance.png", title: "Feature Importance", category: "Model Analytics", description: "Key predictors of customer churn from ML model" },
-  ];
+    { filename: "Churn by customer segment.png", title: "Churn by Customer Segment", category: "Customer Analytics", description: "Churn rate distribution across different customer segments" },
+    { filename: "churn vs mmr.png", title: "Churn vs MRR", category: "Revenue Analytics", description: "Monthly recurring revenue analysis for churned vs retained customers" },
+    { filename: "churn vs seats.png", title: "Churn vs Seats", category: "Usage Analytics", description: "Relationship between user seats and churn probability" },
+    { filename: "support_load.png", title: "Support Load Analysis", category: "Support Analytics", description: "Customer support ticket volume and resolution times" },
+    { filename: "tenure_months.png", title: "Customer Tenure", category: "Customer Analytics", description: "Distribution of customer lifespan in months" },
+    { filename: "usage_level.png", title: "Usage Level Analysis", category: "Usage Analytics", description: "Product usage frequency and engagement patterns" },
+    { filename: "feature_importance.png", title: "Feature Importance", category: "Model Analytics", description: "Key predictors of customer churn from ML model" },
+  ].map((it) => ({ ...it, src: base + encodeURI(it.filename) }));
 
   const categories = ["All", "Customer Analytics", "Revenue Analytics", "Usage Analytics", "Support Analytics", "Model Analytics"];
   const [selectedCategory, setSelectedCategory] = useState("All");
