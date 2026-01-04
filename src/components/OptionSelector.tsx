@@ -9,17 +9,17 @@ interface OptionSelectorProps {
 }
 
 const planOptions = [
-  { id: "basic", title: "Basic", description: "Entry-level tier", icon: Sparkles, users: "2.4K subscribers", color: "from-blue-500 to-cyan-500" },
-  { id: "pro", title: "Pro", description: "Professional tier", icon: Rocket, users: "8.1K subscribers", color: "from-violet-500 to-purple-500" },
-  { id: "enterprise", title: "Enterprise", description: "Enterprise tier", icon: Crown, users: "340 subscribers", color: "from-amber-500 to-orange-500" },
+  { id: "basic", title: "Basic", description: "Entry-level tier", icon: Sparkles, users: "", color: "from-blue-500 to-cyan-500" },
+  { id: "pro", title: "Pro", description: "Professional tier", icon: Rocket, users: "", color: "from-violet-500 to-purple-500" },
+  { id: "enterprise", title: "Enterprise", description: "Enterprise tier", icon: Crown, users: "", color: "from-amber-500 to-orange-500" },
 ];
 
 const industryOptions = [
-  { id: "cybersecurity", title: "Cybersecurity", description: "Security & compliance", icon: Shield, users: "1.2K accounts", color: "from-red-500 to-rose-500" },
-  { id: "devtools", title: "DevTools", description: "Developer platforms", icon: Code2, users: "3.8K accounts", color: "from-emerald-500 to-teal-500" },
-  { id: "edtech", title: "EdTech", description: "Education technology", icon: GraduationCap, users: "2.1K accounts", color: "from-blue-500 to-indigo-500" },
-  { id: "fintech", title: "FinTech", description: "Financial services", icon: Landmark, users: "2.7K accounts", color: "from-amber-500 to-yellow-500" },
-  { id: "healthtech", title: "HealthTech", description: "Healthcare solutions", icon: HeartPulse, users: "1.9K accounts", color: "from-pink-500 to-rose-500" },
+  { id: "cybersecurity", title: "Cybersecurity", description: "Security & compliance", icon: Shield, users: "", color: "from-red-500 to-rose-500" },
+  { id: "devtools", title: "DevTools", description: "Developer platforms", icon: Code2, users: "", color: "from-emerald-500 to-teal-500" },
+  { id: "edtech", title: "EdTech", description: "Education technology", icon: GraduationCap, users: "", color: "from-blue-500 to-indigo-500" },
+  { id: "fintech", title: "FinTech", description: "Financial services", icon: Landmark, users: "", color: "from-amber-500 to-yellow-500" },
+  { id: "healthtech", title: "HealthTech", description: "Healthcare solutions", icon: HeartPulse, users: "", color: "from-pink-500 to-rose-500" },
 ];
 
 export function OptionSelector({ analysisLevel, selected, onSelect }: OptionSelectorProps) {
