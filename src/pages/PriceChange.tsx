@@ -6,6 +6,11 @@ import { OptionSelector } from "@/components/OptionSelector";
 
 type AnalysisLevel = "plan" | "industry" | "subscription" | null;
 
+interface SimulateResponse {
+  expectedChurnPct: number;
+  baseChurnPct?: number;
+}
+
 const PriceChange = () => {
   const [analysisLevel, setAnalysisLevel] = useState<AnalysisLevel>(null);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
@@ -74,10 +79,10 @@ const PriceChange = () => {
         throw new Error(err.detail || `API error: ${res.status}`);
       }
 
-      const data = await res.json();
-      const expected = data?.expectedChurnChangePct;
-      if (expected === undefined) throw new Error("Response missing expectedChurnChangePct");
-      setResult(Number(expected));
+      const data: SimulateResponse = await res.json();
+      const expected = Number(data?.expectedChurnPct);
+      if (!Number.isFinite(expected)) throw new Error("Response missing expectedChurnPct");
+      setResult(expected);
     } catch (err: any) {
       setError(err.message || "Failed to simulate price change");
     } finally {
@@ -193,7 +198,7 @@ const PriceChange = () => {
 
               {result !== null && (
                 <div className="bg-card p-6 rounded-md text-center">
-                  <h3 className="font-semibold mb-2">Expected Change in Churn Probability</h3>
+                  <h3 className="font-semibold mb-2">Expected Churn Probability</h3>
                   <p className="text-2xl font-bold text-accent">{result.toFixed(3)}%</p>
                 </div>
               )}

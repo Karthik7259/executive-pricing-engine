@@ -1,9 +1,10 @@
-import { BarChart3, Target, Zap } from "lucide-react";
+import { BarChart3, Target, Zap, Coins } from "lucide-react";
 import { useEffect, useState } from "react";
 
 interface PricingResultProps {
   basePrice: number;
   optimizedPrice: number;
+  baseRevenue: number;
   expectedRevenue: number;
 }
 
@@ -46,10 +47,11 @@ function AnimatedINR({ value }: { value: number }) {
 export function PricingResult({
   basePrice,
   optimizedPrice,
+  baseRevenue,
   expectedRevenue,
 }: PricingResultProps) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
 
       {/* Current Price */}
       <div className="executive-card">
@@ -66,6 +68,15 @@ export function PricingResult({
         <p className="text-sm text-muted-foreground">Recommended Price</p>
         <p className="text-xl font-semibold">
           <AnimatedINR value={optimizedPrice} /> /mo
+        </p>
+      </div>
+
+      {/* Current Revenue Baseline */}
+      <div className="executive-card">
+        <Coins className="w-5 h-5 mb-2 text-primary" />
+        <p className="text-sm text-muted-foreground">Baseline Revenue</p>
+        <p className="text-xl font-semibold">
+          <AnimatedINR value={baseRevenue} />
         </p>
       </div>
 

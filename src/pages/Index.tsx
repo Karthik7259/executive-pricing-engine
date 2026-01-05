@@ -10,6 +10,7 @@ type AnalysisLevel = "plan" | "industry" | null;
 interface PricingResponse {
   basePrice: number;
   optimizedPrice: number;
+  baseRevenue: number;
   expectedRevenue: number;
 }
 
@@ -64,6 +65,7 @@ const Index = () => {
       if (
         !Number.isFinite(data.basePrice) ||
         !Number.isFinite(data.optimizedPrice) ||
+        !Number.isFinite(data.baseRevenue) ||
         !Number.isFinite(data.expectedRevenue)
       ) {
         throw new Error("Invalid pricing data received");
@@ -165,6 +167,7 @@ const Index = () => {
               <PricingResult
                 basePrice={result.basePrice}
                 optimizedPrice={result.optimizedPrice}
+                baseRevenue={result.baseRevenue}
                 expectedRevenue={result.expectedRevenue}
               />
             </div>
