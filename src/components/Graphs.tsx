@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { ZoomIn, Download, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
+import { Header } from "@/components/Header";
 
 export default function Graphs() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -50,7 +51,9 @@ export default function Graphs() {
   };
 
   return (
-    <main className="container mx-auto px-4 py-8">
+    <>
+      <Header />
+      <main className="container mx-auto px-4 py-8">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Analytics Dashboard</h1>
         <p className="text-gray-600 dark:text-gray-400">Interactive visualizations and insights from customer data analysis</p>
@@ -242,5 +245,6 @@ export default function Graphs() {
         </div>
       </section>
     </main>
+    </>
   );
 }
