@@ -41,12 +41,7 @@ export function Header() {
               Graphs
             </NavLink>
 
-            <button className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary/50 rounded-lg transition-all duration-200">
-              API Reference
-            </button>
-            <button className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary/50 rounded-lg transition-all duration-200">
-              Changelog
-            </button>
+           
             
             <div className="w-px h-6 bg-border mx-3" />
             

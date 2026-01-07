@@ -120,7 +120,6 @@ const Index = () => {
             <AnalysisLevelSelector
               selected={analysisLevel}
               onSelect={handleAnalysisLevelChange}
-              allowSubscription={false}
             />
 
             {analysisLevel && (

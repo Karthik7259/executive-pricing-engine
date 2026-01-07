@@ -1,11 +1,10 @@
 import { Building2, Layers, Check } from "lucide-react";
 
-type AnalysisLevel = "plan" | "industry" | "subscription" | null;
+type AnalysisLevel = "plan" | "industry" | null;
 
 interface AnalysisLevelSelectorProps {
   selected: AnalysisLevel;
   onSelect: (level: AnalysisLevel) => void;
-  allowSubscription?: boolean;
 }
 
 const levels = [
@@ -23,16 +22,9 @@ const levels = [
     icon: Building2,
     detail: "5 industry verticals",
   },
-  {
-    id: "subscription" as const,
-    title: "Subscription",
-    description: "Simulate a price change for a single subscription",
-    icon: Check,
-    detail: "Use subscription ID",
-  },
 ];
 
-export function AnalysisLevelSelector({ selected, onSelect, allowSubscription = true }: AnalysisLevelSelectorProps) {
+export function AnalysisLevelSelector({ selected, onSelect }: AnalysisLevelSelectorProps) {
   return (
     <div className="space-y-5">
       <div className="flex items-center gap-4">
@@ -48,9 +40,7 @@ export function AnalysisLevelSelector({ selected, onSelect, allowSubscription = 
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pl-12">
-        {levels
-          .filter((l) => allowSubscription || l.id !== "subscription")
-          .map((level, index) => {
+        {levels.map((level, index) => {
           const Icon = level.icon;
           const isActive = selected === level.id;
           
